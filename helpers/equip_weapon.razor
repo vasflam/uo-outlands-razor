@@ -38,12 +38,22 @@ else
     endif
 endif
 
+// equip shield
+if equipedSameShield = 0 
+    hotkey 'undress right hand'
+    wait 250
+    if equipWeaponHelperDualhand = 0 and varexist equipWeaponShield
+        lift equipWeaponShield
+        drop self 'lefthand'
+    endif
+endif
+
 // equip weapon
 if equipedSameWeapon = 0
     if equipWeaponHelperDualhand = 0
         hotkey 'undress right hand'
     else
-        hotkey 'undress left hand'
+        hotkey 'undress both hands'
     endif
     wait 250
     lift equipWeaponHelperWeapon
@@ -54,14 +64,7 @@ if equipedSameWeapon = 0
     endif
 endif
 
-// equip shield
-if equipedSameShield = 0 and equipWeaponHelperDualhand = 0 and varexist equipWeaponShield
-    hotkey 'undress right hand'
-    wait 250
-    lift equipWeaponShield
-    drop self 'lefthand'
-endif
-
+// cleanup variables
 @unsetvar! equipedSameWeapon
 @unsetvar! equipedSameShield
 @unsetvar! equipWeaponHelperWeapon
