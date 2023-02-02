@@ -2,7 +2,10 @@
 // Enter you room or first other room
 
 say 'room'
-waitforgump 2393832411
+if not gumpexists 2393832411
+    waitforgump 2393832411
+endif
+
 if ingump 'Enter You Room' 2393832411
     gumpresponse 4
 else
