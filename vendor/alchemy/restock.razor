@@ -18,6 +18,9 @@ dclick restockKegsVendor
 waitforgump 1957446601
 gumpresponse 5
 waitforgump 1957446601
+if findtype 3701 restockKegsVendor as vendorBag
+    @setvar! restockKegsVendor vendorBag
+endif
 
 @headmsg 'Start restocking...'
 // fill lists with vendor pots
@@ -86,12 +89,16 @@ if list 'vendor_gp_pots' < 10
     endfor
 
     foreach x in 'need_pots'
-        if poplist 'source_gp_pots' 'back' as keg
-            lift keg
-            drop restockKegsVendor 44 65
-            wait 600
-            promptresponse 2800
-            wait 100
+        if list 'source_gp_pots' > 1
+            if poplist 'source_gp_pots' 'back' as keg
+                lift keg
+                drop restockKegsVendor 44 65
+                wait 600
+                promptresponse 2800
+                wait 100
+            endif
+        else
+            headmsg 'No greater poison kegs in source'
         endif
     endfor
 endif
@@ -116,12 +123,16 @@ if list 'vendor_dp_pots' < 10
     endfor
 
     foreach x in 'need_pots'
-        if poplist 'source_dp_pots' 'back' as keg
-            lift keg
-            drop restockKegsVendor 64 65
-            wait 600
-            promptresponse 3400
-            wait 100
+        if list 'source_dp_pots' > 1
+            if poplist 'source_dp_pots' 'back' as keg
+                lift keg
+                drop restockKegsVendor 64 65
+                wait 600
+                promptresponse 3400
+                wait 100
+            endif
+        else
+            headmsg 'No deadly poison kegs in source'
         endif
     endfor
 endif
@@ -146,12 +157,16 @@ if list 'vendor_lp_pots' < 10
     endfor
 
     foreach x in 'need_pots'
-        if poplist 'source_lp_pots' 'back' as keg
-            lift keg
-            drop restockKegsVendor 84 65
-            waitforprompt
-            promptresponse 4000
-            wait 600
+        if list 'source_gp_pots' > 1
+            if poplist 'source_lp_pots' 'back' as keg
+                lift keg
+                drop restockKegsVendor 84 65
+                waitforprompt
+                promptresponse 4000
+                wait 600
+            endif
+        else
+            headmsg 'No greater poison kegs in source'
         endif
     endfor
 endif
