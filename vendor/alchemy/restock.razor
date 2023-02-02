@@ -1,7 +1,18 @@
 headmsg 'Select source container'
 @setvar! sourceContainer
 headmsg 'Select vendor'
-@setvar! vendorBackpack
+@setvar! restockKegsVendor
+
+@setvar! restockKegsVendor
+
+if not varexist restockKegsVendor or not find restockKegsVendor gound -1 2 2
+    headmsg 'Vendor not found!'
+    stop
+endif
+dclick restockKegsVendor
+waitforgump 1957446601
+gumpresponse 5
+waitforgump 1957446601
 
 @headmsg 'Start restocking...'
 // fill lists with vendor pots
@@ -12,7 +23,7 @@ createlist 'vendor_gp_pots'
 createlist 'vendor_dp_pots'
 createlist 'vendor_lp_pots'
 @headmsg 'Filling vendors list...'
-while findtype 6464 vendorBackpack 363 as found
+while findtype 6464 restockKegsVendor 363 as found
     getlabel found label
     if 'greater' in label
         pushlist 'vendor_gp_pots' found
@@ -72,7 +83,7 @@ if list 'vendor_gp_pots' < 10
     foreach x in 'need_pots'
         if poplist 'source_gp_pots' 'back' as keg
             lift keg
-            drop vendorBackpack 44 65
+            drop restockKegsVendor 44 65
             wait 600
             promptresponse 2800
             wait 100
@@ -102,7 +113,7 @@ if list 'vendor_dp_pots' < 10
     foreach x in 'need_pots'
         if poplist 'source_dp_pots' 'back' as keg
             lift keg
-            drop vendorBackpack 64 65
+            drop restockKegsVendor 64 65
             wait 600
             promptresponse 3400
             wait 100
@@ -132,7 +143,7 @@ if list 'vendor_lp_pots' < 10
     foreach x in 'need_pots'
         if poplist 'source_lp_pots' 'back' as keg
             lift keg
-            drop vendorBackpack 84 65
+            drop restockKegsVendor 84 65
             waitforprompt
             promptresponse 4000
             wait 600
@@ -142,12 +153,12 @@ endif
 
 
 // GH
-if counttype 6464 vendorBackpack 253 < 10
+if counttype 6464 restockKegsVendor 253 < 10
     @headmsg 'Greater heal < 10'
     while findtype 6464 sourceContainer 253 as found
-        if counttype 6464 vendorBackpack 253 < 10
+        if counttype 6464 restockKegsVendor 253 < 10
             lift found
-            drop vendorBackpack 104 65
+            drop restockKegsVendor 104 65
             waitforprompt
             promptresponse 3000
             wait 600
@@ -158,12 +169,12 @@ if counttype 6464 vendorBackpack 253 < 10
 endif
 
 // Cure
-if counttype 6464 vendorBackpack 44 < 10
+if counttype 6464 restockKegsVendor 44 < 10
     @headmsg 'Greater cure < 10'
     while findtype 6464 sourceContainer 44 as found
-        if counttype 6464 vendorBackpack 44 < 10
+        if counttype 6464 restockKegsVendor 44 < 10
             lift found
-            drop vendorBackpack 124 65
+            drop restockKegsVendor 124 65
             waitforprompt
             promptresponse 3000
             wait 600
@@ -174,10 +185,10 @@ if counttype 6464 vendorBackpack 44 < 10
 endif
 
 // Refresh
-if counttype 6464 vendorBackpack 37 < 10
+if counttype 6464 restockKegsVendor 37 < 10
     @headmsg 'Greater refresh < 10'
     while findtype 6464 sourceContainer 37 as found
-        if counttype 6464 vendorBackpack 37 < 10
+        if counttype 6464 restockKegsVendor 37 < 10
             lift found
             drop 0x4590ABF7 44 95
             waitforprompt
@@ -190,10 +201,10 @@ if counttype 6464 vendorBackpack 37 < 10
 endif
 
 // Str
-if counttype 6464 vendorBackpack 956 < 10
+if counttype 6464 restockKegsVendor 956 < 10
     @headmsg 'Greater strength < 10'
     while findtype 6464 sourceContainer 956 as found
-        if counttype 6464 vendorBackpack 956 < 10
+        if counttype 6464 restockKegsVendor 956 < 10
             lift found
             drop 0x4590ABF7 64 95
             wait 600
@@ -205,12 +216,12 @@ if counttype 6464 vendorBackpack 956 < 10
 endif
 
 // Agi
-if counttype 6464 vendorBackpack 93 < 10
+if counttype 6464 restockKegsVendor 93 < 10
     @headmsg 'Greater agility < 10'
     while findtype 6464 sourceContainer 93 as found
-        if counttype 6464 vendorBackpack 93 < 10
+        if counttype 6464 restockKegsVendor 93 < 10
             lift found
-            drop vendorBackpack 84 95
+            drop restockKegsVendor 84 95
             waitforprompt
             promptresponse 3000
             wait 600
@@ -221,12 +232,12 @@ if counttype 6464 vendorBackpack 93 < 10
 endif
 
 // Resist
-if counttype 6464 vendorBackpack 1109 < 10
+if counttype 6464 restockKegsVendor 1109 < 10
     @headmsg 'Greater resist < 10'
     while findtype 6464 sourceContainer 1109 as found
-        if counttype 6464 vendorBackpack 1109 < 10
+        if counttype 6464 restockKegsVendor 1109 < 10
             lift found
-            drop vendorBackpack 104 95
+            drop restockKegsVendor 104 95
             waitforprompt
             promptresponse 3700
             wait 600
@@ -237,12 +248,12 @@ if counttype 6464 vendorBackpack 1109 < 10
 endif
 
 // Explosion
-if counttype 6464 vendorBackpack 419 < 10
+if counttype 6464 restockKegsVendor 419 < 10
     @headmsg 'Greater agility < 10'
     while findtype 6464 sourceContainer 419 as found
-        if counttype 6464 vendorBackpack 419 < 10
+        if counttype 6464 restockKegsVendor 419 < 10
             lift found
-            drop vendorBackpack 124 95
+            drop restockKegsVendor 124 95
             waitforprompt
             promptresponse 3000
             wait 600
