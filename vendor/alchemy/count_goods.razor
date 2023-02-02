@@ -3,6 +3,18 @@
 
 @setvar! maxStockCount 10
 
+headmsg 'Select vendor'
+@setvar! countKegsVendor
+
+if not varexist countKegsVendor or not find countKegsVendor gound -1 2 2
+    headmsg 'Vendor not found!'
+    stop
+endif
+dclick countKegsVendor
+waitforgump 1957446601
+gumpresponse 5
+waitforgump 1957446601
+
 headmsg 'Start counting...'
 @removelist 'vendor_gp_pots'
 @removelist 'vendor_dp_pots'
@@ -26,7 +38,7 @@ headmsg 'Start counting...'
 @createlist 'vendor_ge_pots'
 
 @clearignore
-while findtype 6464 vendorBackpack as keg
+while findtype 6464 countKegsVendor as keg
     getlabel keg label
     if 'greater poison' in label
         @pushlist 'vendor_gp_pots' keg
@@ -47,6 +59,7 @@ while findtype 6464 vendorBackpack as keg
     elseif 'greater magic' in label
         @pushlist 'vendor_gr_pots' keg
     endif
+    @ignore keg
 endwhile
 
 // greater poison
