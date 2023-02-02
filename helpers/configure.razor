@@ -21,19 +21,20 @@ drop self 'righthand'
 if not lhandempty
     @setvar weaponSet1Dualhand 1
 endif
-if weaponSet1Dualhand = 0
+if weaponSet1Dualhand = 0 and varexists weaponSet1Shield
     lift weaponSet1Shield
     drop self 'lefthand'
 endif
 
 // Configure set 2
+hotkey 'Undress Both Hands'
 @setvar weaponSet2Dualhand 0
 lift weaponSet2Weapon
 drop self 'righthand'
 if not lhandempty
     @setvar weaponSet2Dualhand 1
 endif
-if weaponSet2Dualhand = 0
+if weaponSet2Dualhand = 0 and varexists weaponSet2Shield
     lift weaponSet2Shield
     drop self 'lefthand'
 endif
