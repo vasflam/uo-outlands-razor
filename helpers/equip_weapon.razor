@@ -1,0 +1,71 @@
+// equip_weapon.razor
+// Equip specified weapon and/or shield
+//
+// Vars:
+//   equipWeaponHelperWeapon
+//   equipWeaponHelperShield
+//   equipWeaponHelperDualhand = 0
+
+if not varexist equipWeaponHelperDualhand
+    @setvar! equipWeaponHelperDualhand 0
+endif
+
+if not varexist equipWeaponHelperWeapon
+    headmsg 'Dont call this script directly.' 34
+    stop
+endif
+
+// Check if weapon already in place
+@setvar! equipedSameWeapon 0
+@setvar! equipedSameShield 0
+if equipWeaponHelperDualhand = 1
+    if findlayer self 'lefthand' as weapon
+        if weapon = equipWeaponHelperWeapon
+            @setvar! equipedSameWeapon 1
+        endif
+    endif
+else
+    if findlayer self 'righthand' as weapon
+        if weapon = equipWeaponHelperWeapon
+            @setvar! equipedSameWeapon 1
+        endif
+    endif
+
+    if findlayer self 'lefthand' as shield
+        if shield = equipWeaponHelperShield
+            @setvar! equipedSameShield 1
+        endif
+    endif
+endif
+
+// equip weapon
+if equipedSameWeapon = 0
+    if equipWeaponHelperDualhand = 0
+        hotkey 'undress right hand'
+    else
+        hotkey 'unress left hand'
+    endif
+    wait 250
+    lift equipWeaponHelperWeapon
+    if equipWeaponHelperDualhand = 0
+        drop self 'righthand'
+    else
+        drop self 'lefthand'
+    endif
+endif
+
+// equip shield
+if equipedSameShield = 0 and equipWeaponHelperDualhand = 0 and varexist equipWeaponShield
+    hotkey 'undress right hand'
+    wait 250
+    lift equipWeaponShield
+    drop self 'lefthand'
+endif
+
+@unsetvar! equipedSameWeapon
+@unsetvar! equipedSameShield
+@unsetvar! equipWeaponHelperWeapon
+if varexist equipWeaponHelperShield
+    @unsetvar! equipWeaponHelperShield
+endif
+@unsetvar! equipWeaponHelperDualhand

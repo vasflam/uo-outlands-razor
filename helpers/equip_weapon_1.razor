@@ -1,18 +1,9 @@
-hotkey 'Undress Both Hands'
-if find weaponSet1Weapon backpack
-    lift weaponSet1Weapon
-    drop self 'righthand'
-    wait 250
-else
-    headmsg 'Weapon from set 1 not found' 34
-endif
+// equip_weapon_set1.razor
+// Equip weapon set 1
 
-if weaponSet1Dualhand = 1
-    if find weaponSet1Shield backpack
-        lift weaponSet1Shield
-        drop self 'lefthand'
-        wait 250
-    else
-        headmsg 'Shield from set 1 not found' 34
-    endif
+@setvar! equipWeaponHelperWeapon weaponSet1Weapon
+if varexist weaponSet1Shield
+    @setvar! equipWeaponHelperShield weaponSet1Shield
 endif
+@setvar! equipWeaponHelperDualhand weaponSet1Dualhand
+hotkey 'play script: helpers\equip_weapon'

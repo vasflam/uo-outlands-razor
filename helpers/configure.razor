@@ -15,9 +15,11 @@ headmsg 'Select your tank animal or press ESC'
 @setvar tankFollower
 
 // Configure set 1
+headmsg 'Configure weaponset 1'
 @setvar weaponSet1Dualhand 0
 lift weaponSet1Weapon
 drop self 'righthand'
+wait 250
 if not lhandempty
     @setvar weaponSet1Dualhand 1
 endif
@@ -27,7 +29,9 @@ if weaponSet1Dualhand = 0 and varexist weaponSet1Shield
 endif
 
 // Configure set 2
+headmsg 'Configure weaponset 2'
 hotkey 'Undress Both Hands'
+wait 250
 @setvar weaponSet2Dualhand 0
 lift weaponSet2Weapon
 drop self 'righthand'
@@ -38,3 +42,4 @@ if weaponSet2Dualhand = 0 and varexist weaponSet2Shield
     lift weaponSet2Shield
     drop self 'lefthand'
 endif
+headmsg 'Configuration complete'
