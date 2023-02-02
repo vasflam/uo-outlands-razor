@@ -2,15 +2,15 @@
 // Equip specified weapon and/or shield
 //
 // Vars:
-//   equipWeaponHelperWeapon
-//   equipWeaponHelperShield
-//   equipWeaponHelperDualhand = 0
+//   helperEquipWeaponWeapon
+//   helperEquipWeaponShield
+//   helperEquipWeaponDualhand = 0
 
-if not varexist equipWeaponHelperDualhand
-    @setvar! equipWeaponHelperDualhand 0
+if not varexist helperEquipWeaponDualhand
+    @setvar! helperEquipWeaponDualhand 0
 endif
 
-if not varexist equipWeaponHelperWeapon
+if not varexist helperEquipWeaponWeapon
     headmsg 'Dont call this script directly.' 34
     stop
 endif
@@ -18,21 +18,21 @@ endif
 // Check if weapon already in place
 @setvar! equipedSameWeapon 0
 @setvar! equipedSameShield 0
-if equipWeaponHelperDualhand = 1
+if helperEquipWeaponDualhand = 1
     if findlayer self 'lefthand' as weapon
-        if weapon = equipWeaponHelperWeapon
+        if weapon = helperEquipWeaponWeapon
             @setvar! equipedSameWeapon 1
         endif
     endif
 else
     if findlayer self 'righthand' as weapon
-        if weapon = equipWeaponHelperWeapon
+        if weapon = helperEquipWeaponWeapon
             @setvar! equipedSameWeapon 1
         endif
     endif
 
     if findlayer self 'lefthand' as shield
-        if shield = equipWeaponHelperShield
+        if shield = helperEquipWeaponShield
             @setvar! equipedSameShield 1
         endif
     endif
@@ -42,7 +42,7 @@ endif
 if equipedSameShield = 0 
     hotkey 'undress left hand'
     wait 250
-    if equipWeaponHelperDualhand = 0 and varexist equipWeaponShield
+    if helperEquipWeaponDualhand = 0 and varexist equipWeaponShield
         lift equipWeaponShield
         drop self 'lefthand'
     endif
@@ -50,14 +50,14 @@ endif
 
 // equip weapon
 if equipedSameWeapon = 0
-    if equipWeaponHelperDualhand = 0
+    if helperEquipWeaponDualhand = 0
         hotkey 'undress right hand'
     else
         hotkey 'undress both hands'
     endif
     wait 250
-    lift equipWeaponHelperWeapon
-    if equipWeaponHelperDualhand = 0
+    lift helperEquipWeaponWeapon
+    if helperEquipWeaponDualhand = 0
         drop self 'righthand'
     else
         drop self 'lefthand'
@@ -65,10 +65,10 @@ if equipedSameWeapon = 0
 endif
 
 // cleanup variables
-@unsetvar! equipedSameWeapon
-@unsetvar! equipedSameShield
-@unsetvar! equipWeaponHelperWeapon
-if varexist equipWeaponHelperShield
-    @unsetvar! equipWeaponHelperShield
+@unsetvar equipedSameWeapon
+@unsetvar equipedSameShield
+@unsetvar helperEquipWeaponWeapon
+if varexist helperEquipWeaponShield
+    @unsetvar helperEquipWeaponShield
 endif
-@unsetvar! equipWeaponHelperDualhand
+@unsetvar helperEquipWeaponDualhand

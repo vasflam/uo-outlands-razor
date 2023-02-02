@@ -1,9 +1,9 @@
 // equip_weapon_set2.razor
 // Equip weapon set 2
 
-@setvar! equipWeaponHelperWeapon weaponSet2Weapon
-if varexist weaponSet2Shield
-    @setvar! equipWeaponHelperShield weaponSet2Shield
+@setvar! helperEquipWeaponWeapon weaponSet2Weapon
+if varexist helperEquipWeaponShield
+    @setvar! helperEquipWeaponShield weaponSet2Shield
 endif
-@setvar! equipWeaponHelperDualhand weaponSet2Dualhand
+@setvar! helperEquipWeaponDualhand weaponSet2Dualhand
 hotkey 'play script: helpers\equip_weapon'
