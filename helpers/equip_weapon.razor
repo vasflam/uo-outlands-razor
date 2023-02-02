@@ -42,8 +42,8 @@ endif
 if equipedSameShield = 0 
     hotkey 'undress left hand'
     wait 250
-    if helperEquipWeaponDualhand = 0 and varexist equipWeaponShield
-        lift equipWeaponShield
+    if helperEquipWeaponDualhand = 0 and varexist helperEquipWeaponShield
+        lift helperEquipWeaponShield
         drop self 'lefthand'
     endif
 endif
