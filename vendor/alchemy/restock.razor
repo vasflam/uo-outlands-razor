@@ -1,10 +1,15 @@
 headmsg 'Select source container'
-@setvar! sourceContainer
+@setvar! restockKegsSource
+if not varexist restockKegsSource or not find restockKegsSource -1 -1 2 2
+    headmsg 'Source container not found!'
+    stop
+endif
+dclick restockKegsSource
+wait 600
+
+
 headmsg 'Select vendor'
 @setvar! restockKegsVendor
-
-@setvar! restockKegsVendor
-
 if not varexist restockKegsVendor or not find restockKegsVendor gound -1 2 2
     headmsg 'Vendor not found!'
     stop
