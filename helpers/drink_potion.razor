@@ -1,6 +1,14 @@
 // drink_potion.razor
 // Drink potions helper, unequip left hand if need, set non volatile variable
 // in parent script and call this scrip `hotkey 'play script: helpers\drink_potion'`
+//
+// Vars:
+//  helperDrinkPotionType
+
+if not varexist helperDrinkPotionType
+    headmsg 'Dont run this script directly!' 34
+    stop
+endif
 
 @setvar! drinkPotionReequip 0
 if findtype helperDrinkPotionType backpack as found
@@ -25,4 +33,5 @@ if findtype helperDrinkPotionType backpack as found
 else
     headmsg 'Potion not found!' 34
 endif
-
+@unsetvar! drinkPotionReequip
+@unsetvar! helperDrinkPotionType
