@@ -1,0 +1,10 @@
+// free_rhand.razor
+// Free right hand if alchemy < 80
+
+setvar helperFreeRhandReequip 0
+if not rhandempty and skill 'alchemy' < 80
+    if findlayer self 'rhand' as item
+        setvar! helperFreeRhandReequip 1
+        setvar! helperFreeRhandItem item
+    endif
+endif
