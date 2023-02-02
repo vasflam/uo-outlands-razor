@@ -1,0 +1,49 @@
+// lumber.razor
+// Harvest lumber
+
+@setvar! tldrResource '6585'
+@setvar! tldrTool '3908'
+
+if not findtype tldrTool self
+    overhead 'Tools not found!'
+    stop
+endif
+
+warmode 'off'
+if not findlayer self 'lefthand'
+    lifttype tldrTool
+    drop self 'lefthand'
+    wait 700
+endif
+
+while not dead
+    @createtimer! chopTimer
+    @clearsysmsg
+    
+    dclick 'left'
+    wft 1000
+    target self
+    while timer chopTimer < 10000
+        if insysmsg 'You hack' or insysmsg  'chop'
+            break
+        endif
+        if insysmsg 'harvestable resources'
+            headmsg 'Stopping....'
+            while findtype 7133 as found
+                hotkey 'Use Item In Hand'
+                wft
+                target found
+                wait 600
+            endwhile
+            stop
+        endif
+        wait 500
+    endwhile
+    removetimer chopTimer
+    
+    if insysmsg 'nearby'
+        headmsg 'Stoppping...'
+        stop
+    endif
+endwhile
+

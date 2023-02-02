@@ -1,0 +1,17 @@
+hotkey 'Undress Both Hands'
+if find weaponSet2Weapon backpack
+    lift weaponSet2Weapon
+    drop self 'righthand'
+else
+    headmsg 'Weapon from set 2 not found' 34
+endif
+
+if weaponSet2Dualhand = 1
+    if find weaponSet2Shield backpack
+        lift weaponSet2Shield
+        drop self 'lefthand'
+    else
+        headmsg 'Shield from set 2 not found' 34
+    endif
+endif
+

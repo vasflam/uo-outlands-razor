@@ -1,7 +1,22 @@
-hotkey 'helpers\free_rhand'
+@setvar! drinkPotionReequip 0
+if not lhandempty
+    if findlayer self 'lefthand' as item
+        @setvar! drinkPotionReequip 0
+        @setvar! drinkPotionReequipItem item
+    endif
+endif
+
 if findtype helperDrinkPotionType backpack as found
     dclick found 
 else
     headmsg 'Potion not found!' 34
 endif
-hotkey 'helpers\free_rhand_reequip'
+
+if drinkPotionReequip = 1
+    if find drinkPotionReequipItem backpack
+        lift drinkPotionReequipItem
+        drop self 'lefthand'
+    else
+        @headmsg 'Your item have dissapeared!' 34
+    endif
+endif

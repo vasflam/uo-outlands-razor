@@ -1,0 +1,10 @@
+if not cooldown 'Stealing'
+    if find lasttarget ground any any 2 as found
+        useskill 'stealing'
+        wft 2000
+        target found
+    else
+        @headmsg 'Far away for stealing'
+    endif
+endif
+

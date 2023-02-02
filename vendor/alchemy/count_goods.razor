@@ -1,0 +1,323 @@
+// count_goods.razor
+// Count potions kegs on vendor
+
+@setvar! maxStockCount 10
+
+headmsg 'Start counting...'
+@removelist 'vendor_gp_pots'
+@removelist 'vendor_dp_pots'
+@removelist 'vendor_lp_pots'
+@removelist 'vendor_gh_pots'
+@removelist 'vendor_gc_pots'
+@removelist 'vendor_gr_pots'
+@removelist 'vendor_gs_pots'
+@removelist 'vendor_ga_pots'
+@removelist 'vendor_tr_pots'
+@removelist 'vendor_ge_pots'
+@createlist 'vendor_gp_pots'
+@createlist 'vendor_dp_pots'
+@createlist 'vendor_lp_pots'
+@createlist 'vendor_gh_pots'
+@createlist 'vendor_gc_pots'
+@createlist 'vendor_tr_pots'
+@createlist 'vendor_gs_pots'
+@createlist 'vendor_ga_pots'
+@createlist 'vendor_gr_pots'
+@createlist 'vendor_ge_pots'
+
+@clearignore
+while findtype 6464 vendorBackpack as keg
+    getlabel keg label
+    if 'greater poison' in label
+        @pushlist 'vendor_gp_pots' keg
+    elseif 'deadly poison' in label
+        @pushlist 'vendor_dp_pots' keg
+    elseif 'lethal poison' in label
+        @pushlist 'vendor_lp_pots' keg
+    elseif 'greater heal' in label
+        @pushlist 'vendor_gh_pots' keg
+    elseif 'greater cure' in label
+        @pushlist 'vendor_gc_pots' keg
+    elseif 'total refresh' in label
+        @pushlist 'vendor_tr_pots' keg
+    elseif 'greater strength' in label
+        @pushlist 'vendor_gs_pots' keg
+    elseif 'greater agility' in label
+        @pushlist 'vendor_ga_pots' keg
+    elseif 'greater magic' in label
+        @pushlist 'vendor_gr_pots' keg
+    endif
+endwhile
+
+// greater poison
+@setvar! kegsCount 0
+if list 'vendor_gp_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_gp_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gp_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gp_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_gp_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_gp_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_gp_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_gp_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_gp_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_gp_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_gp_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Greter poison {{kegsCount}}/10'
+
+// deadly poison
+@setvar! kegsCount 0
+if list 'vendor_dp_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_dp_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_dp_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_dp_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_dp_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_dp_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_dp_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_dp_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_dp_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_dp_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_dp_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Deadly poison {{kegsCount}}/10'
+
+// lethal poison
+@setvar! kegsCount 0
+if list 'vendor_lp_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_lp_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_lp_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_lp_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_lp_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_lp_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_lp_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_lp_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_lp_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_lp_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_lp_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Lethal poison {{kegsCount}}/10'
+
+// greater heal
+@setvar! kegsCount 0
+if list 'vendor_gh_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_gh_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gh_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gh_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_gh_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_gh_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_gh_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_gh_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_gh_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_gh_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_gh_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Greater heal {{kegsCount}}/10'
+
+// greater cure
+@setvar! kegsCount 0
+if list 'vendor_gc_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_gc_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gc_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gc_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_gc_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_gc_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_gc_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_gc_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_gc_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_gc_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_gc_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Greater cure {{kegsCount}}/10'
+
+// total refresh
+@setvar! kegsCount 0
+if list 'vendor_gr_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_gr_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gr_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gr_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_gr_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_gr_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_gr_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_gr_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_gr_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_gr_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_gr_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Total refresh {{kegsCount}}/10'
+
+// greater strength
+@setvar! kegsCount 0
+if list 'vendor_gs_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_gs_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gs_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gs_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_gs_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_gs_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_gs_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_gs_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_gs_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_gs_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_gs_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Greater strength {{kegsCount}}/10'
+
+// greater agility
+@setvar! kegsCount 0
+if list 'vendor_ga_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_ga_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_ga_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_ga_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_ga_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_ga_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_ga_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_ga_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_ga_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_ga_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_ga_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Greater agility {{kegsCount}}/10'
+@headmsg 'Stop counting'
+
+// greater magic resist
+@setvar! kegsCount 0
+if list 'vendor_gr_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_gr_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gr_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_gr_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_gr_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_gr_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_gr_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_gr_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_gr_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_gr_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_gr_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Greater resist {{kegsCount}}/10'
+@headmsg 'Stop counting'
+
+// greater explosion
+@setvar! kegsCount 0
+if list 'vendor_ge_pots' = 1
+    @setvar! kegsCount 1
+elseif list 'vendor_ge_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_ge_pots' = 2
+    @setvar! kegsCount 2
+elseif list 'vendor_ge_pots' = 3
+    @setvar! kegsCount 3
+elseif list 'vendor_ge_pots' = 4
+    @setvar! kegsCount 4
+elseif list 'vendor_ge_pots' = 5
+    @setvar! kegsCount 5
+elseif list 'vendor_ge_pots' = 6
+    @setvar! kegsCount 6
+elseif list 'vendor_ge_pots' = 7
+    @setvar! kegsCount 7
+elseif list 'vendor_ge_pots' = 8
+    @setvar! kegsCount 8
+elseif list 'vendor_ge_pots' = 9
+    @setvar! kegsCount 9
+elseif list 'vendor_ge_pots' = 10
+    @setvar! kegsCount 10
+endif
+@headmsg 'Greater explosion {{kegsCount}}/10'
+@headmsg 'Stop counting'

@@ -1,0 +1,32 @@
+// wool.razor
+// Harvest wool from sheeps, creates yarns if near spinning wheel,
+// and creates cloth if near loom.
+
+if findtype 'spinning wheel' ground any any 2 as wheel
+    @clearignore
+    while findtype 'pile%s% of wool' backpack as found
+        dclick found
+        wft 1500
+        target wheel
+        wait 1000
+    endwhile
+endif
+
+if findtype 'upright loom' ground any any 2 as loom
+    while findtype 'ball%s% of yarn' backpack as found
+        dclick found
+        wft 1500
+        target loom
+        wait 600
+    endwhile
+endif
+
+if findtype 'scissors' backpack as scissors
+    if findtype 'a sheep' ground any any 2 as sheep
+        dclick scissors
+        wft 1500
+        target sheep
+        @ignore sheep
+    endif
+endif
+

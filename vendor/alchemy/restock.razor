@@ -1,0 +1,254 @@
+headmsg 'Select source container'
+@setvar! sourceContainer
+headmsg 'Select vendor'
+@setvar! vendorBackpack
+
+@headmsg 'Start restocking...'
+// fill lists with vendor pots
+@removelist 'vendor_gp_pots'
+@removelist 'vendor_dp_pots'
+@removelist 'vendor_lp_pots'
+createlist 'vendor_gp_pots'
+createlist 'vendor_dp_pots'
+createlist 'vendor_lp_pots'
+@headmsg 'Filling vendors list...'
+while findtype 6464 vendorBackpack 363 as found
+    getlabel found label
+    if 'greater' in label
+        pushlist 'vendor_gp_pots' found
+    elseif 'deadly' in label
+        pushlist 'vendor_dp_pots' found
+    elseif 'lethal' in label
+        pushlist 'vendor_lp_pots' found
+    endif
+    @ignore found
+    wait 100
+endwhile
+@clearignore
+
+// fill lists with existed pots in sourceContainer
+@removelist 'source_gp_pots'
+@removelist 'source_dp_pots'
+@removelist 'source_lp_pots'
+createlist 'source_gp_pots'
+createlist 'source_dp_pots'
+createlist 'source_lp_pots'
+@headmsg 'Filling source list...'
+if list 'vendor_gp_pots' < 10 or list 'vendor_dp_pots' < 10 or 'vendor_lp_pots' < 10
+    while findtype 6464 sourceContainer 363 as found
+        getlabel found label
+        if 'greater' in label
+            pushlist 'source_gp_pots' found
+        elseif 'deadly' in label
+            pushlist 'source_dp_pots' found
+        elseif 'lethal' in label
+            pushlist 'source_lp_pots' found
+        endif
+        @ignore found
+        wait 100
+    endwhile
+endif
+@clearignore
+
+// Greater poison
+if list 'vendor_gp_pots' < 10
+    headmsg 'Less than 10 greater poison pots!!!!'
+    @removelist 'need_pots'
+    @createlist 'need_pots'
+    @pushlist 'need_pots' 1
+    @pushlist 'need_pots' 2
+    @pushlist 'need_pots' 3
+    @pushlist 'need_pots' 4
+    @pushlist 'need_pots' 5
+    @pushlist 'need_pots' 6
+    @pushlist 'need_pots' 7
+    @pushlist 'need_pots' 8
+    @pushlist 'need_pots' 9
+    @pushlist 'need_pots' 10
+    foreach x in 'vendor_gp_pots'
+        poplist 'need_pots' 'back'
+    endfor
+
+    foreach x in 'need_pots'
+        if poplist 'source_gp_pots' 'back' as keg
+            lift keg
+            drop vendorBackpack 44 65
+            wait 600
+            promptresponse 2800
+            wait 100
+        endif
+    endfor
+endif
+
+// Deadly poison
+if list 'vendor_dp_pots' < 10
+    headmsg 'Less than 10 deadly pots!!!!'
+    @removelist 'need_pots'
+    @createlist 'need_pots'
+    @pushlist 'need_pots' 1
+    @pushlist 'need_pots' 2
+    @pushlist 'need_pots' 3
+    @pushlist 'need_pots' 4
+    @pushlist 'need_pots' 5
+    @pushlist 'need_pots' 6
+    @pushlist 'need_pots' 7
+    @pushlist 'need_pots' 8
+    @pushlist 'need_pots' 9
+    @pushlist 'need_pots' 10
+    foreach x in 'vendor_dp_pots'
+        poplist 'need_pots' 'back'
+    endfor
+
+    foreach x in 'need_pots'
+        if poplist 'source_dp_pots' 'back' as keg
+            lift keg
+            drop vendorBackpack 64 65
+            wait 600
+            promptresponse 3400
+            wait 100
+        endif
+    endfor
+endif
+
+// Lethal poison
+if list 'vendor_lp_pots' < 10
+    headmsg 'Less than 10 lethal pots!!!!'
+    @removelist 'need_pots'
+    @createlist 'need_pots'
+    @pushlist 'need_pots' 1
+    @pushlist 'need_pots' 2
+    @pushlist 'need_pots' 3
+    @pushlist 'need_pots' 4
+    @pushlist 'need_pots' 5
+    @pushlist 'need_pots' 6
+    @pushlist 'need_pots' 7
+    @pushlist 'need_pots' 8
+    @pushlist 'need_pots' 9
+    @pushlist 'need_pots' 10
+    foreach x in 'vendor_lp_pots'
+        poplist 'need_pots' 'back'
+    endfor
+
+    foreach x in 'need_pots'
+        if poplist 'source_lp_pots' 'back' as keg
+            lift keg
+            drop vendorBackpack 84 65
+            waitforprompt
+            promptresponse 4000
+            wait 600
+        endif
+    endfor
+endif
+
+
+// GH
+if counttype 6464 vendorBackpack 253 < 10
+    @headmsg 'Greater heal < 10'
+    while findtype 6464 sourceContainer 253 as found
+        if counttype 6464 vendorBackpack 253 < 10
+            lift found
+            drop vendorBackpack 104 65
+            waitforprompt
+            promptresponse 3000
+            wait 600
+        else
+            break
+        endif
+    endwhile
+endif
+
+// Cure
+if counttype 6464 vendorBackpack 44 < 10
+    @headmsg 'Greater cure < 10'
+    while findtype 6464 sourceContainer 44 as found
+        if counttype 6464 vendorBackpack 44 < 10
+            lift found
+            drop vendorBackpack 124 65
+            waitforprompt
+            promptresponse 3000
+            wait 600
+        else
+            break
+        endif
+    endwhile
+endif
+
+// Refresh
+if counttype 6464 vendorBackpack 37 < 10
+    @headmsg 'Greater refresh < 10'
+    while findtype 6464 sourceContainer 37 as found
+        if counttype 6464 vendorBackpack 37 < 10
+            lift found
+            drop 0x4590ABF7 44 95
+            waitforprompt
+            promptresponse 3000
+            wait 600
+        else
+            break
+        endif
+    endwhile
+endif
+
+// Str
+if counttype 6464 vendorBackpack 956 < 10
+    @headmsg 'Greater strength < 10'
+    while findtype 6464 sourceContainer 956 as found
+        if counttype 6464 vendorBackpack 956 < 10
+            lift found
+            drop 0x4590ABF7 64 95
+            wait 600
+            promptresponse 3000
+        else
+            break
+        endif
+    endwhile
+endif
+
+// Agi
+if counttype 6464 vendorBackpack 93 < 10
+    @headmsg 'Greater agility < 10'
+    while findtype 6464 sourceContainer 93 as found
+        if counttype 6464 vendorBackpack 93 < 10
+            lift found
+            drop vendorBackpack 84 95
+            waitforprompt
+            promptresponse 3000
+            wait 600
+        else
+            break
+        endif
+    endwhile
+endif
+
+// Resist
+if counttype 6464 vendorBackpack 1109 < 10
+    @headmsg 'Greater resist < 10'
+    while findtype 6464 sourceContainer 1109 as found
+        if counttype 6464 vendorBackpack 1109 < 10
+            lift found
+            drop vendorBackpack 104 95
+            waitforprompt
+            promptresponse 3700
+            wait 600
+        else
+            break
+        endif
+    endwhile
+endif
+
+// Explosion
+if counttype 6464 vendorBackpack 419 < 10
+    @headmsg 'Greater agility < 10'
+    while findtype 6464 sourceContainer 419 as found
+        if counttype 6464 vendorBackpack 419 < 10
+            lift found
+            drop vendorBackpack 124 95
+            waitforprompt
+            promptresponse 3000
+            wait 600
+        else
+            break
+        endif
+    endwhile
+endif
+

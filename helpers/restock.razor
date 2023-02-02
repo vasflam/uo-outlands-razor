@@ -1,0 +1,177 @@
+// restock pile/shelf
+@hotkey 'clear target queue'
+@hotkey 'cancel current target'
+@hotkey 'Clear Drag/Drop Queue'
+
+if not varexist warpackBag
+    headmsg 'Select warpack bag'
+    @setvar warpackBag
+endif
+if not find warpackBag
+    headmsg 'Warpack bag not found, select new'
+    @setvar warpackBag
+endif
+if not find warpackBag
+    headmsg 'Warpack bag not found, stop'
+    stop
+endif
+
+if not varexist lootBag
+    headmsg 'Select loot bag'
+    @setvar lootBag
+endif
+if not find lootBag
+    headmsg 'loot bag not found, select new'
+    @setvar lootBag
+endif
+if not find lootBag
+    headmsg 'Loot bag not found, stop'
+    stop
+endif
+
+if not varexist wizardSatchel
+    headmsg 'Select wizard satchel'
+    @setvar wizardSatchel
+endif
+if not find wizardSatchel
+    headmsg 'Wizar satchel not found, select new'
+    @setvar wizardSatchel
+endif
+if not find wizardSatchel
+    headmsg 'No satchel. Reagents in scrolls in warpackbag'
+    @setvar wizardSatchel warpackBag
+endif
+
+
+// START
+clearignore
+// decise where to move loot
+if find homeContainer ground any any 2
+    dclick homeContainer
+    wait 600
+else
+    headmsg 'Unloading only at home'
+    stop
+endif
+
+// First unload shelf resources and reagents/bottles/etc
+if findtype 'storage shelf' ground any any 2 as shelf
+    headmsg 'Storage shelf....'
+    dclick shelf
+    waitforgump 3232825965
+    gumpresponse 7
+    wait 600
+    // resupply bag
+    gumpresponse 4
+    wft 3000
+    target lootBag
+    wait 600
+    gumpclose
+endif
+
+//unload gold from backpack
+while findtype 'gold coin' backpack as gold
+    headmsg 'Unload gold'
+    lifttype 'gold coin' 99999
+    drop homeContainer -1 -1
+    wait 600
+endwhile
+
+//unload sckill scrolls from backpack
+while findtype 'scroll of calling' backpack as found
+    getlabel found label
+    @headmsg label
+    lift found 999
+    drop skillScrollsCont -1 -1
+    wait 600
+endwhile
+
+// unload aspect items
+// from whole backpack
+@clearignore
+foreach aspectItem in aspectItemsList
+    while findtype aspectItem backpack as found
+        getlabel found label
+        overhead label
+        lift found 999
+        drop aspectBook -1 -1
+        wait 600
+        @ignore found
+    endwhile
+endfor
+
+// rares from whole backpack
+@clearignore
+foreach item in rareItemsList
+    while findtype item backpack as found
+        getlabel found label
+        overhead label
+        lift found 999
+        drop raresContainer -1 -1
+        wait 600
+        @ignore found
+    endwhile
+endfor
+
+// unload maps
+while findtype 5356 backpack as found
+    getlabel found label
+    @headmsg label
+    lift found
+    if hue found = 2904
+        drop fishingMapsCont
+    else
+        // temporary unsorted maps cont
+        drop unsortedMapsCont
+    endif
+    wait 600
+endwhile
+
+if findtype 'resource container' ground any any 2 as rcont
+    dclick rcont
+    waitforgump 1859005118
+    gumpresponse 2
+    wft 2000
+    target lootBag
+endif
+
+
+// unload scrolls
+@clearignore
+foreach scroll in magicScrollsList
+    while findtype scroll lootBag as found
+        getlabel found label
+        overhead label
+        lift found 999
+        drop scrollsBag -1 -1
+        wait 300
+        @ignore found
+    endwhile
+endfor
+
+// unload uitems
+@clearignore
+foreach item in undefinedItemsList
+    while findtype item lootBag as found
+        getlabel found label
+        overhead label
+        if unidentified in label
+            lift found
+            drop uitemsBag 143 117
+            wait 300
+        endif
+        @ignore found
+    endwhile
+endfor
+
+// Restock scrolls
+overhead 'Restocking...'
+dclick wizardSatchel
+wait 800
+restock 1 'set'
+wft
+target wizardSatchel
+restock 1
+wft
+target scrollsBag
+

@@ -1,0 +1,13 @@
+// enter_room.razor
+// Enter you room or first other room
+
+say 'room'
+waitforgump 2393832411
+if ingump 'Enter You Room' 2393832411
+    gumpresponse 4
+else
+    gumpresponse 5
+    waitforgump 2393832411
+    gumpresponse 100
+endif
+

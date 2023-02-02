@@ -1,0 +1,12 @@
+// recall.razor
+// Recall to predefined rune
+
+if not varexist homeRune or not find homeRune backpack
+    headmsg 'Select your home rune'
+    @setvar! homeRune
+endif
+@hotkey 'cancel current target'
+@hotkey 'clear target queue'
+cast 'recall'
+wft
+target homeRune

@@ -1,0 +1,22 @@
+// focus_aggression.razor
+// Use focus aggression with distance check, if no crook in backpack or
+// distance is greater that 10 use 'all kill' command on target.
+//
+// Hotkey: 
+
+headmsg 'Whom to attack?'
+@setvar! focusAggressionTarget
+
+if findtype 3713 backpack
+    if find focusAggressionTarget ground -1 10 10
+        say '[FocusAggression'
+    else
+        say 'all kill'
+    endif
+    wft
+    target focusAggressionTarget
+else
+    say 'all kill'
+    wft
+    target focusAggressionTarget
+endif

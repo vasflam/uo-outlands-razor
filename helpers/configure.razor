@@ -1,0 +1,39 @@
+hotkey 'Undress Both Hands'
+headmsg 'Select your first set weapon'
+@setvar weaponSet1Weapon
+
+headmsg 'Select your first set shield or press ESC'
+@setvar weaponSet1Shield
+
+headmsg 'Select your second set weapon'
+@setvar weaponSet2Weapon
+
+headmsg 'Select your second set shield or press ESC'
+@setvar weaponSet2Shield
+
+headmsg 'Select your tank animal or press ESC'
+@setvar tankFollower
+
+// Configure set 1
+@setvar weaponSet1Dualhand 0
+lift weaponSet1Weapon
+drop self 'righthand'
+if not lhandempty
+    @setvar weaponSet1Dualhand 1
+endif
+if weaponSet1Dualhand = 0
+    lift weaponSet1Shield
+    drop self 'lefthand'
+endif
+
+// Configure set 2
+@setvar weaponSet2Dualhand 0
+lift weaponSet2Weapon
+drop self 'righthand'
+if not lhandempty
+    @setvar weaponSet2Dualhand 1
+endif
+if weaponSet2Dualhand = 0
+    lift weaponSet2Shield
+    drop self 'lefthand'
+endif

@@ -1,0 +1,16 @@
+if not varexists tankFollower
+    headmsg 'Please reconfigure variables'
+    stop
+endif
+
+if findtype 3617 backpack as bandages
+    if find tankFollower ground -1 2 2
+        dclick bandages
+        wft
+        target tankFollower
+    else
+        headmsg 'Stay closer to tank follower!'
+    endif
+else
+    heamsg 'Bandages not found!' 34
+endif

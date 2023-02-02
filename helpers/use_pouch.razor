@@ -1,0 +1,11 @@
+// use_pouch.razor
+// Use trapped pouch and start bandagind self
+
+if findtype 'pouch' backpack 38 as found
+    dclick found
+endif
+    wait 200
+
+if not bandaging
+    hotkey 'bandage self'
+endif
