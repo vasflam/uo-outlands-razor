@@ -21,7 +21,7 @@ drop self 'righthand'
 if not lhandempty
     @setvar weaponSet1Dualhand 1
 endif
-if weaponSet1Dualhand = 0 and varexists weaponSet1Shield
+if weaponSet1Dualhand = 0 and varexist weaponSet1Shield
     lift weaponSet1Shield
     drop self 'lefthand'
 endif
@@ -34,7 +34,7 @@ drop self 'righthand'
 if not lhandempty
     @setvar weaponSet2Dualhand 1
 endif
-if weaponSet2Dualhand = 0 and varexists weaponSet2Shield
+if weaponSet2Dualhand = 0 and varexist weaponSet2Shield
     lift weaponSet2Shield
     drop self 'lefthand'
 endif
